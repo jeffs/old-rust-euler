@@ -59,7 +59,6 @@ pub fn from_factors(m: &PowerMap) -> u64 {
     r
 }
 
-
 /// Returns true if none of the candidate divisors (`ds`) evenly divides `n`.
 fn none_divides(ds: &Vec<u64>, n: u64) -> bool {
     ds.iter().find(|&d| n % d == 0).is_none()
