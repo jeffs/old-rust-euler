@@ -11,5 +11,5 @@ use super::prime::factor;
 ///     assert_eq!(rust_euler::problem3::solution(), 6857);
 ///
 pub fn solution() -> u64 {
-    factor(600_851_475_143).last().unwrap().0
+    *factor(600_851_475_143).iter().next_back().unwrap().0
 }
