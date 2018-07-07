@@ -58,3 +58,42 @@ pub fn from_factors(m: &PowerMap) -> u64 {
     }
     r
 }
+
+
+/// Returns true if none of the candidate divisors (`ds`) evenly divides `n`.
+fn none_divides(ds: &Vec<u64>, n: u64) -> bool {
+    ds.iter().find(|&d| n % d == 0).is_none()
+}
+
+/// Returns the first `n` prime numbers.
+///
+///     use rust_euler::prime;
+///
+///     assert_eq!(prime::generate(0), Vec::new());
+///
+pub fn generate(n: usize) -> Vec<u64> {
+    if n == 0 {
+        return Vec::new();
+    }
+    let mut ks = [2].to_vec(); // known primes
+    let mut i = 3;
+    while ks.len() < n {
+        if none_divides(&ks, i) {
+            ks.push(i);
+        }
+        i += 2;
+    }
+    ks
+}
+
+/// Returns the nth prime number, where `n` is a 0-based index.
+///
+///     use rust_euler::prime;
+///
+///     assert_eq!(prime::nth(0), 2);
+///     assert_eq!(prime::nth(1), 3);
+///     assert_eq!(prime::nth(2), 5);
+///
+pub fn nth(n: usize) -> u64 {
+    *generate(n + 1).last().unwrap()
+}
