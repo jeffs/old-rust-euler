@@ -5,7 +5,7 @@ use std::collections::BTreeMap;
 /// Maps prime numbers to their exponents as factors of some number.  For example,
 /// `[(2, 1), (3, 2), (5, 3)]` represents the number 2250, because 2250 == 2<sup>1</sup> *
 /// 3<sup>2</sup> * 5<sup>3</sup>.
-pub type PowerMap = BTreeMap<u64, u64>;
+pub type PowerMap = BTreeMap<u64, u32>;
 
 /// Returns the prime factors of `n`, paired with their exponents.
 pub fn factor(mut n: u64) -> PowerMap {
@@ -25,11 +25,19 @@ pub fn factor(mut n: u64) -> PowerMap {
     r
 }
 
+pub fn from_factors(m: &PowerMap) -> u64 {
+    let mut r = 1;
+    for (&k, &v) in m.iter() {
+        r *= k.pow(v)
+    }
+    r
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
 
-    fn to_map(kvs: &[(u64, u64)]) -> PowerMap {
+    fn to_map(kvs: &[(u64, u32)]) -> PowerMap {
         kvs.into_iter().cloned().collect()
     }
 
