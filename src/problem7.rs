@@ -17,6 +17,7 @@ mod tests {
     use super::*;
 
     #[test]
+    #[cfg_attr(not(feature = "slow_tests"), ignore)]
     fn test_solution() {
         assert_eq!(solution(), 104743);
     }
