@@ -7,7 +7,26 @@ use std::collections::BTreeMap;
 /// 3<sup>2</sup> * 5<sup>3</sup>.
 pub type PowerMap = BTreeMap<u64, u32>;
 
+/// Constructs a map from the specified key/value `pairs`.
+///
+///     use rust_euler::prime::{to_map, PowerMap};
+///
+///     assert_eq!(to_map(&[]), PowerMap::new());
+///
+pub fn to_map(pairs: &[(u64, u32)]) -> PowerMap {
+    pairs.into_iter().cloned().collect()
+}
+
 /// Returns the prime factors of `n`, paired with their exponents.
+///
+///     use rust_euler::prime::{factor, to_map, PowerMap};
+///
+///     assert_eq!(factor(0), PowerMap::new());
+///     assert_eq!(factor(1), PowerMap::new());
+///     assert_eq!(factor(2), to_map(&[(2, 1)]));
+///     assert_eq!(factor(24), to_map(&[(2, 3), (3, 1)]));
+///     assert_eq!(factor(42), to_map(&[(2, 1), (3, 1), (7, 1)]));
+///
 pub fn factor(mut n: u64) -> PowerMap {
     let mut r = PowerMap::new();
     let mut d = 2;
@@ -25,28 +44,17 @@ pub fn factor(mut n: u64) -> PowerMap {
     r
 }
 
+/// Returns the number that is the product of the specified powers of primes.
+///
+///     use rust_euler::prime::{from_factors, to_map, PowerMap};
+///
+///     assert_eq!(from_factors(&PowerMap::new()), 1);
+///     assert_eq!(from_factors(&to_map(&[(2, 3), (3, 1)])), 24);
+///
 pub fn from_factors(m: &PowerMap) -> u64 {
     let mut r = 1;
     for (&k, &v) in m.iter() {
         r *= k.pow(v)
     }
     r
-}
-
-#[cfg(test)]
-mod tests {
-    use super::*;
-
-    fn to_map(kvs: &[(u64, u32)]) -> PowerMap {
-        kvs.into_iter().cloned().collect()
-    }
-
-    #[test]
-    fn test_prime_factor() {
-        assert_eq!(factor(0), PowerMap::new());
-        assert_eq!(factor(1), PowerMap::new());
-        assert_eq!(factor(2), to_map(&[(2, 1)]));
-        assert_eq!(factor(24), to_map(&[(2, 3), (3, 1)]));
-        assert_eq!(factor(42), to_map(&[(2, 1), (3, 1), (7, 1)]));
-    }
 }
