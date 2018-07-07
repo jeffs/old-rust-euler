@@ -9,9 +9,6 @@
 use prime::{factor, from_factors, PowerMap};
 
 /// Returns the smallest positive integer divisible by all integers in the range 1..21.
-///
-///     assert_eq!(rust_euler::problem5::solution(), 232_792_560);
-///
 pub fn solution() -> u64 {
     // prime-factor each number in 1..21 into a prime => exponent map
     // for each key in the union of the keys of all those maps
@@ -25,4 +22,14 @@ pub fn solution() -> u64 {
         }
     }
     from_factors(&r)
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn test_solution() {
+        assert_eq!(solution(), 232_792_560);
+    }
 }

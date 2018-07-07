@@ -7,9 +7,16 @@
 use super::prime::factor;
 
 /// Returns the largest prime factor of 600_851_475_143.
-///
-///     assert_eq!(rust_euler::problem3::solution(), 6857);
-///
 pub fn solution() -> u64 {
     *factor(600_851_475_143).iter().next_back().unwrap().0
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn test_solution() {
+        assert_eq!(solution(), 6857);
+    }
 }

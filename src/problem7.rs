@@ -8,9 +8,16 @@
 use prime;
 
 /// Returns the 10001st prime number.
-///
-///     assert_eq!(rust_euler::problem7::solution(), 104743);
-///
 pub fn solution() -> u64 {
     prime::nth(10_000)
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn test_solution() {
+        assert_eq!(solution(), 104743);
+    }
 }

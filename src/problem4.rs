@@ -27,9 +27,6 @@ fn is_palindrome_base10(n: u32) -> bool {
 }
 
 /// Returns the largest palindrome that is the product of two 3-digit numbers.
-///
-///     assert_eq!(rust_euler::problem4::solution(), 906609);
-///
 pub fn solution() -> u32 {
     let mut r = None;
     for i in 100..1000 {
@@ -53,5 +50,10 @@ mod tests {
     #[test]
     fn test_to_digits_reverse() {
         assert_eq!(to_digits_reverse(8675309, 10), vec![9, 0, 3, 5, 7, 6, 8]);
+    }
+
+    #[test]
+    fn test_solution() {
+        assert_eq!(solution(), 906609);
     }
 }

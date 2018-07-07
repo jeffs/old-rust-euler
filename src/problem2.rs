@@ -22,12 +22,19 @@ impl Iterator for FibonacciIter {
 }
 
 /// Returns the sum of all even Fibonacci numbers not exceeding 4_000_000.
-///
-///     assert_eq!(rust_euler::problem2::solution(), 4_613_732);
-///
 pub fn solution() -> u32 {
     FibonacciIter(1, 2)
         .take_while(|&i| i <= 4_000_000)
         .filter(|&i| i % 2 == 0)
         .sum()
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn test_solution() {
+        assert_eq!(solution(), 4_613_732);
+    }
 }
