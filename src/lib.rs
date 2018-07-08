@@ -6,4 +6,5 @@ pub mod problem5;
 pub mod problem6;
 pub mod problem7;
 
+pub mod bit_vec;
 pub mod prime;
