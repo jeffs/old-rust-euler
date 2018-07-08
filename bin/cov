@@ -1,0 +1,18 @@
+#!/bin/sh
+#
+# Prereq:   pip install pycobertura
+# See also: https://github.com/xd009642/tarpaulin
+
+set -eou pipefail
+
+docker run --rm -it \
+    --security-opt seccomp=unconfined \
+    -v "$PWD:/volume" \
+    xd009642/tarpaulin \
+    cargo tarpaulin --out Xml \
+    "$@"
+
+mkdir -p target/coverage
+cd target/coverage
+mv ../../cobertura.xml .
+pycobertura show --format html --output coverage.html cobertura.xml
