@@ -115,8 +115,9 @@ mod tests {
         v.pushn(true, 0);
         v.pushn(true, 6);
         v.pushn(false, 7);
+        v.pushn(true, 5);
         let v = v;
-        assert_eq!(v.len(), 8 + 0 + 0 + 6 + 7);
+        assert_eq!(v.len(), 8 + 0 + 0 + 6 + 7 + 5);
         assert!(!v.get(0));
         assert!(!v.get(1));
         assert!(!v.get(2));
@@ -138,5 +139,43 @@ mod tests {
         assert!(!v.get(18));
         assert!(!v.get(19));
         assert!(!v.get(20));
+        assert!(v.get(21));
+        assert!(v.get(22));
+        assert!(v.get(23));
+        assert!(v.get(24));
+        assert!(v.get(25));
+    }
+
+    #[test]
+    fn test_capacity() {
+        let mut v = BitVec::new();
+        assert_eq!(v.capacity(), 0);
+        v.pushn(false, 1);
+        assert_eq!(v.capacity(), 8);
+        v.pushn(false, 2);
+        assert_eq!(v.capacity(), 8);
+        assert_eq!(BitVec::with_all(true, 0).capacity(), 0);
+        assert_eq!(BitVec::with_all(true, 1).capacity(), 8);
+        assert_eq!(BitVec::with_all(true, 2).capacity(), 8);
+        assert_eq!(BitVec::with_all(true, 16).capacity(), 16);
+        assert_eq!(BitVec::with_all(true, 17).capacity(), 24);
+    }
+
+    #[test]
+    fn test_set() {
+        let mut v = BitVec::with_all(false, 11);
+        v.set(4);
+        v.set(9);
+        assert!(!v.get(0));
+        assert!(!v.get(1));
+        assert!(!v.get(2));
+        assert!(!v.get(3));
+        assert!(v.get(4));
+        assert!(!v.get(5));
+        assert!(!v.get(6));
+        assert!(!v.get(7));
+        assert!(!v.get(8));
+        assert!(v.get(9));
+        assert!(!v.get(10));
     }
 }

@@ -1,2 +1,5 @@
 /target
 **/*.rs.bk
+
+/cobertura.xml
+/coverage.html
