@@ -2,6 +2,8 @@
 
 mod table;
 
+pub use self::table::Table;
+
 use std::collections::BTreeMap;
 
 /// Maps prime numbers to their exponents as factors of some number.  For example,
