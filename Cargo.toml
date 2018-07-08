@@ -7,3 +7,10 @@ authors = ["Jeff Schwab <jeff@unbuggy.com>"]
 
 [features]
 slow_tests = []
+
+[dev-dependencies]
+criterion = "0.2"
+
+[[bench]]
+name = "my_benchmark"
+harness = false
