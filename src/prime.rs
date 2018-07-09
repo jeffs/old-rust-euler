@@ -1,6 +1,6 @@
 //! Utilities for finding prime numbers
 
-use std::collections::BTreeMap;
+use std::collections::{BTreeMap, BTreeSet};
 
 /// Maps prime numbers to their exponents as factors of some number.  For example,
 /// `[(2, 1), (3, 2), (5, 3)]` represents the number 2250, because 2250 == 2<sup>1</sup> *
@@ -69,6 +69,7 @@ fn none_divides(ds: &Vec<u64>, n: u64) -> bool {
 ///     use rust_euler::prime;
 ///
 ///     assert_eq!(prime::generate(0), Vec::new());
+///     assert_eq!(prime::generate(5), vec![2, 3, 5, 7, 11]);
 ///
 pub fn generate(n: usize) -> Vec<u64> {
     if n == 0 {
@@ -83,6 +84,28 @@ pub fn generate(n: usize) -> Vec<u64> {
         i += 2;
     }
     ks
+}
+
+/// Returns all prime numbers strictly less than `end`.
+///
+///     use rust_euler::prime;
+///
+///     assert_eq!(prime::generate_to(2), Vec::new());
+///     assert_eq!(prime::generate_to(13), vec![2, 3, 5, 7, 11]);
+///
+pub fn generate_to(end: u64) -> BTreeSet<u64> {
+    fn to_set(xs: &[u64]) -> BTreeSet<u64> {
+        xs.iter().cloned().collect()
+    }
+    match end {
+        0...2 => BTreeSet::new(),
+        3 => to_set(&[2]),
+        4 => to_set(&[2, 3]),
+        _ => {
+            let mut r = 1..(end / 2)
+            r
+        }
+    }
 }
 
 /// Returns the nth prime number, where `n` is a 0-based index.
