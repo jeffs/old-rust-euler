@@ -5,6 +5,7 @@ fn to_index(i: u64) -> usize {
 /// Maps numbers to bools indicating whether those numbers are prime.
 pub struct Table {
     bits: Vec<bool>,
+    max: usize,
 }
 
 impl Table {
@@ -29,7 +30,36 @@ impl Table {
                 m += 2;
             }
         }
-        Table { bits }
+        Table { bits, size }
+    }
+
+    pub fn resize(&mut self, size: usize) {
+        // extend bit-vec to the new size
+        // for each existing prime
+        //  mark all multiples in the new section composite
+        // starting with the first key in the extension,
+        //  find primes and mark their multiples composite, as in ::new
+
+        let bits = &mut self.bits;
+        if size <= bits.len() {
+            return;
+        }
+        let old_size = self.size;
+        bits.resize(size, true);
+        let mut m = 3;
+        while m < old_size && m * m <= size as u64 {
+            let i = to_index(m);
+            if bits[i] {
+                let mut n = m + m + m;
+                let mut j = to_index(n);
+                while j < bits.len() {
+                    bits[j] = false;
+                    n += m + m;
+                    j = to_index(n);
+                }
+            }
+            m += 2;
+        }
     }
 
     /// Returns true if `n` is prime, and false otherwise.  `n` must be strictly less than the

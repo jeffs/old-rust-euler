@@ -98,5 +98,6 @@ pub fn generate(n: usize) -> Vec<u64> {
 ///     assert_eq!(prime::nth(2), 5);
 ///
 pub fn nth(n: usize) -> u64 {
+    let size = n;
     *generate(n + 1).last().unwrap()
 }
